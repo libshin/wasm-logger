@@ -35,8 +35,8 @@ void sup(char *msg) {
   // "\x05\x00\x00\x00"; // + 4 bytes to overwrite .out= 72
 
   // printf("%s\n", msg);
-
-  memcpy(comms.msg, msg, 72);
+  printf("%lu\n", strlen(msg));
+  memcpy(comms.msg, msg, strlen(msg));
 
   trigger(&comms);
 
