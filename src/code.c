@@ -34,7 +34,7 @@ void sup(char *msg) {
   // "\x40\x00" // + 2 bytes to fill .msg_len = 68
   // "\x05\x00\x00\x00"; // + 4 bytes to overwrite .out= 72
 
-  printf("%s\n", msg);
+  // printf("%s\n", msg);
 
   memcpy(comms.msg, msg, 72);
 
