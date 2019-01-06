@@ -20,7 +20,8 @@ void communicate(const char *msg) {
   printf("%s", msg);
 }
 
-int main(void) {
+EMSCRIPTEN_KEEPALIVE
+int sup(void) {
   Comms comms;
   comms.out = &communicate;
   char *useless = &communicate; // 0x4
