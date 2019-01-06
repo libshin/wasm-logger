@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "yarn -s build && node src/index.js",
+    "start": "node src/index.js",
     "build": "emcc -o src/code.js src/code.c"
   }
 }

@@ -1,7 +1,7 @@
 const code = require("./code.js");
 
-// console.dir(code);
+const sleep = ms => new Promise(res => setTimeout(() => res(), ms));
 
-setInterval(() => {
+sleep(150).then(() => {
   code._sup();
-}, 1000);
+});
