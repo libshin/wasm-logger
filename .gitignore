@@ -63,3 +63,4 @@ typings/
 code.js
 .cache/
 dist/
+lib/
