@@ -1,6 +1,10 @@
 {
+  "name": "@libshin/wasm-logger",
+  "version": "0.0.0",
+  "main": "lib/index.js",
   "scripts": {
     "start": "node src/index.js",
-    "build": "emcc -s EXTRA_EXPORTED_RUNTIME_METHODS='[\"cwrap\", \"allocate\", \"intArrayFromString\", \"ALLOC_NORMAL\", \"Pointer_stringify\"]' -s ASSERTIONS=2 -o src/code.js src/code.c"
+    "build:wasm": "emcc -s EXTRA_EXPORTED_RUNTIME_METHODS='[\"cwrap\", \"allocate\", \"intArrayFromString\", \"ALLOC_NORMAL\", \"Pointer_stringify\"]' -s ASSERTIONS=2 -o src/code.js src/code.c",
+    "build": "rm -rf lib && mkdir lib && cp src/code.js src/code.wasm src/index.js lib/"
   }
 }
